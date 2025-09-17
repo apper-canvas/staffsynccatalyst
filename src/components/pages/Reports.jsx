@@ -56,17 +56,17 @@ const Reports = ({ onMenuClick }) => {
   if (error) return <Error message={error} onRetry={loadData} />;
 
   // Calculate statistics
-  const totalEmployees = employees.length;
-  const activeEmployees = employees.filter(emp => emp.status === "active").length;
-  const inactiveEmployees = employees.filter(emp => emp.status === "inactive").length;
-  const pendingEmployees = employees.filter(emp => emp.status === "pending").length;
+const totalEmployees = employees.length;
+  const activeEmployees = employees.filter(emp => emp.status_c === "active").length;
+  const inactiveEmployees = employees.filter(emp => emp.status_c === "inactive").length;
+  const pendingEmployees = employees.filter(emp => emp.status_c === "pending").length;
 
-  const departmentStats = departments.map(dept => ({
-    department: dept.name,
-    employees: employees.filter(emp => emp.department === dept.name).length,
-    activeEmployees: employees.filter(emp => emp.department === dept.name && emp.status === "active").length,
-    manager: dept.manager || "N/A",
-    budget: dept.budget ? `$${dept.budget.toLocaleString()}` : "N/A"
+const departmentStats = departments.map(dept => ({
+    department: dept.name_c,
+    employees: employees.filter(emp => emp.department_c?.Name === dept.name_c).length,
+    activeEmployees: employees.filter(emp => emp.department_c?.Name === dept.name_c && emp.status_c === "active").length,
+    manager: dept.manager_c || "N/A",
+    budget: dept.budget_c ? `$${dept.budget_c.toLocaleString()}` : "N/A"
   }));
 
   const statusReport = [
@@ -75,19 +75,19 @@ const Reports = ({ onMenuClick }) => {
     { status: "Pending", count: pendingEmployees, percentage: ((pendingEmployees / totalEmployees) * 100).toFixed(1) },
   ];
 
-  const recentHires = employees
+const recentHires = employees
     .filter(emp => {
-      const hireDate = new Date(emp.startDate);
+      const hireDate = new Date(emp.start_date_c);
       const thirtyDaysAgo = new Date();
       thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
       return hireDate >= thirtyDaysAgo;
     })
     .map(emp => ({
-      name: `${emp.firstName} ${emp.lastName}`,
-      department: emp.department,
-      jobTitle: emp.jobTitle,
-      startDate: new Date(emp.startDate).toLocaleDateString(),
-      status: emp.status
+      name: `${emp.first_name_c} ${emp.last_name_c}`,
+      department: emp.department_c?.Name,
+      jobTitle: emp.job_title_c,
+      startDate: new Date(emp.start_date_c).toLocaleDateString(),
+      status: emp.status_c
     }));
 
   return (

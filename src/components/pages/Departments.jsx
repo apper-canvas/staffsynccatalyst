@@ -68,18 +68,18 @@ const Departments = ({ onMenuClick }) => {
   };
 
   const handleEditDepartment = (department) => {
-    setSelectedDepartment(department);
+setSelectedDepartment(department);
     setFormData({
-      name: department.name || "",
-      manager: department.manager || "",
-      budget: department.budget || "",
-      description: department.description || "",
+      name: department.name_c || "",
+      manager: department.manager_c || "",
+      budget: department.budget_c || "",
+      description: department.description_c || "",
     });
     setIsFormOpen(true);
   };
 
   const handleDeleteDepartment = async (department) => {
-    const departmentEmployees = employees.filter(emp => emp.department === department.name);
+const departmentEmployees = employees.filter(emp => emp.department_c?.Name === department.name_c);
     
     if (departmentEmployees.length > 0) {
       toast.error(`Cannot delete department with ${departmentEmployees.length} employees. Please reassign employees first.`);
@@ -145,14 +145,14 @@ const Departments = ({ onMenuClick }) => {
   };
 
   const filteredDepartments = departments.filter(department => 
-    department.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    department.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    department.manager?.toLowerCase().includes(searchTerm.toLowerCase())
+department.name_c?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    department.description_c?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    department.manager_c?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const managerOptions = employees.map(emp => ({
-    value: `${emp.firstName} ${emp.lastName}`,
-    label: `${emp.firstName} ${emp.lastName} - ${emp.jobTitle}`
+const managerOptions = employees.map(emp => ({
+    value: `${emp.first_name_c} ${emp.last_name_c}`,
+    label: `${emp.first_name_c} ${emp.last_name_c} - ${emp.job_title_c}`
   }));
 
   if (loading) return <Loading type="cards" />;

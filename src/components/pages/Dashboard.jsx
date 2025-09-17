@@ -42,17 +42,17 @@ const Dashboard = ({ onMenuClick }) => {
   if (loading) return <Loading type="cards" />;
   if (error) return <Error message={error} onRetry={loadData} />;
 
-  const activeEmployees = employees.filter(emp => emp.status === "active");
+const activeEmployees = employees.filter(emp => emp.status_c === "active");
   const recentHires = employees.filter(emp => {
-    const hireDate = new Date(emp.startDate);
+const hireDate = new Date(emp.start_date_c);
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
     return hireDate >= thirtyDaysAgo;
   });
 
   const departmentStats = departments.map(dept => ({
-    ...dept,
-    employeeCount: employees.filter(emp => emp.department === dept.name).length
+...dept,
+    employeeCount: employees.filter(emp => emp.department_c?.Name === dept.name_c).length
   }));
 
   return (
@@ -112,21 +112,21 @@ const Dashboard = ({ onMenuClick }) => {
               </div>
               <div className="space-y-3">
                 {recentHires.slice(0, 5).map(employee => (
-                  <div key={employee.Id} className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50">
+<div key={employee.Id} className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50">
                     <div className="bg-gradient-to-r from-primary-500 to-primary-600 h-10 w-10 rounded-full flex items-center justify-center text-white font-semibold">
-                      {employee.firstName?.charAt(0)}{employee.lastName?.charAt(0)}
+                      {employee.first_name_c?.charAt(0)}{employee.last_name_c?.charAt(0)}
                     </div>
                     <div className="flex-1">
                       <p className="font-medium text-gray-900">
-                        {employee.firstName} {employee.lastName}
+                        {employee.first_name_c} {employee.last_name_c}
                       </p>
-                      <p className="text-sm text-gray-500">{employee.jobTitle}</p>
+                      <p className="text-sm text-gray-500">{employee.job_title_c}</p>
                     </div>
                     <div className="text-right">
                       <p className="text-sm text-gray-900">
-                        {format(new Date(employee.startDate), "MMM dd")}
+                        {format(new Date(employee.start_date_c), "MMM dd")}
                       </p>
-                      <p className="text-xs text-gray-500">{employee.department}</p>
+                      <p className="text-xs text-gray-500">{employee.department_c?.Name}</p>
                     </div>
                   </div>
                 ))}
@@ -147,14 +147,14 @@ const Dashboard = ({ onMenuClick }) => {
               </div>
               <div className="space-y-3">
                 {departmentStats.slice(0, 5).map(department => (
-                  <div key={department.Id} className="flex items-center justify-between p-2 rounded-lg hover:bg-gray-50">
+<div key={department.Id} className="flex items-center justify-between p-2 rounded-lg hover:bg-gray-50">
                     <div className="flex items-center space-x-3">
                       <div className="bg-gradient-to-r from-success-500 to-success-600 p-2 rounded-lg">
                         <ApperIcon name="Building2" className="h-4 w-4 text-white" />
                       </div>
                       <div>
-                        <p className="font-medium text-gray-900">{department.name}</p>
-                        <p className="text-sm text-gray-500">{department.manager}</p>
+                        <p className="font-medium text-gray-900">{department.name_c}</p>
+                        <p className="text-sm text-gray-500">{department.manager_c}</p>
                       </div>
                     </div>
                     <div className="text-right">

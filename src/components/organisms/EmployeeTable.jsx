@@ -91,28 +91,28 @@ const EmployeeTable = ({ employees, onEdit, onDelete, onView }) => {
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center">
                     <div className="bg-gradient-to-r from-primary-500 to-primary-600 h-10 w-10 rounded-full flex items-center justify-center text-white font-semibold">
-                      {employee.firstName?.charAt(0)}{employee.lastName?.charAt(0)}
+{employee.first_name_c?.charAt(0)}{employee.last_name_c?.charAt(0)}
                     </div>
                     <div className="ml-4">
                       <div className="text-sm font-medium text-gray-900">
-                        {employee.firstName} {employee.lastName}
+                        {employee.first_name_c} {employee.last_name_c}
                       </div>
-                      <div className="text-sm text-gray-500">{employee.email}</div>
+                      <div className="text-sm text-gray-500">{employee.email_c}</div>
                     </div>
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">{employee.jobTitle}</div>
+<div className="text-sm text-gray-900">{employee.job_title_c}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">{employee.department}</div>
+<div className="text-sm text-gray-900">{employee.department_c?.Name}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  {format(new Date(employee.startDate), "MMM dd, yyyy")}
+{format(new Date(employee.start_date_c), "MMM dd, yyyy")}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <Badge variant={getStatusVariant(employee.status)}>
-                    {employee.status}
+<Badge variant={getStatusVariant(employee.status_c)}>
+                    {employee.status_c}
                   </Badge>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">

@@ -24,21 +24,21 @@ const EmployeeForm = ({ employee, onSave, onCancel, departments = [] }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    if (employee) {
+if (employee) {
       setFormData({
-        firstName: employee.firstName || "",
-        lastName: employee.lastName || "",
-        email: employee.email || "",
-        phone: employee.phone || "",
-        jobTitle: employee.jobTitle || "",
-        department: employee.department || "",
-        manager: employee.manager || "",
-        startDate: employee.startDate ? employee.startDate.split("T")[0] : "",
-        salary: employee.salary || "",
-        status: employee.status || "active",
-        address: employee.address || "",
-        emergencyContactName: employee.emergencyContact?.name || "",
-        emergencyContactPhone: employee.emergencyContact?.phone || "",
+        firstName: employee.first_name_c || "",
+        lastName: employee.last_name_c || "",
+        email: employee.email_c || "",
+        phone: employee.phone_c || "",
+        jobTitle: employee.job_title_c || "",
+        department: employee.department_c?.Name || "",
+        manager: employee.manager_c || "",
+        startDate: employee.start_date_c ? employee.start_date_c.split("T")[0] : "",
+        salary: employee.salary_c || "",
+        status: employee.status_c || "active",
+        address: employee.address_c || "",
+        emergencyContactName: employee.emergency_contact_name_c || "",
+        emergencyContactPhone: employee.emergency_contact_phone_c || "",
       });
     }
   }, [employee]);
@@ -96,9 +96,9 @@ const EmployeeForm = ({ employee, onSave, onCancel, departments = [] }) => {
     }
   };
 
-  const departmentOptions = departments.map(dept => ({
-    value: dept.name,
-    label: dept.name
+const departmentOptions = departments.map(dept => ({
+    value: dept.name_c,
+    label: dept.name_c
   }));
 
   const statusOptions = [

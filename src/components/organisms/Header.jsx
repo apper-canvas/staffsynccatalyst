@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
+import { useSelector } from "react-redux";
 import Button from "@/components/atoms/Button";
 import ApperIcon from "@/components/ApperIcon";
+import { AuthContext } from "../../App";
 
 const Header = ({ onMenuClick, title, actions }) => {
+  const { logout } = useContext(AuthContext);
+  const { user } = useSelector((state) => state.user);
+
   return (
     <header className="bg-white shadow-sm border-b border-gray-200">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
@@ -20,11 +25,25 @@ const Header = ({ onMenuClick, title, actions }) => {
               {title}
             </h1>
           </div>
-          {actions && (
-            <div className="flex items-center space-x-3">
-              {actions}
-            </div>
-          )}
+          <div className="flex items-center space-x-3">
+            {actions}
+            {user && (
+              <div className="flex items-center space-x-3">
+                <span className="text-sm text-gray-600">
+                  {user.firstName} {user.lastName}
+                </span>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={logout}
+                  className="text-red-600 hover:text-red-700"
+                >
+                  <ApperIcon name="LogOut" className="h-4 w-4" />
+                  Logout
+                </Button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </header>

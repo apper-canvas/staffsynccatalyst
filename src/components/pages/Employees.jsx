@@ -50,7 +50,7 @@ const Employees = ({ onMenuClick }) => {
 
   const handleSaveEmployee = async (employeeData) => {
     try {
-      if (selectedEmployee) {
+if (selectedEmployee) {
         const updatedEmployee = await employeeService.update(selectedEmployee.Id, employeeData);
         setEmployees(prev => prev.map(emp => 
           emp.Id === selectedEmployee.Id ? updatedEmployee : emp
@@ -94,15 +94,14 @@ const Employees = ({ onMenuClick }) => {
   };
 
   const filteredEmployees = employees.filter(employee => {
-    const matchesSearch = 
-      employee.firstName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      employee.lastName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      employee.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      employee.jobTitle?.toLowerCase().includes(searchTerm.toLowerCase());
+const matchesSearch = 
+      employee.first_name_c?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      employee.last_name_c?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      employee.email_c?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      employee.job_title_c?.toLowerCase().includes(searchTerm.toLowerCase());
     
-    const matchesDepartment = !filterDepartment || employee.department === filterDepartment;
-    const matchesStatus = !filterStatus || employee.status === filterStatus;
-    
+    const matchesDepartment = !filterDepartment || employee.department_c?.Name === filterDepartment;
+    const matchesStatus = !filterStatus || employee.status_c === filterStatus;
     return matchesSearch && matchesDepartment && matchesStatus;
   });
 
@@ -141,8 +140,8 @@ const Employees = ({ onMenuClick }) => {
                   className="min-w-[140px]"
                 >
                   <option value="">All Departments</option>
-                  {departments.map(dept => (
-                    <option key={dept.Id} value={dept.name}>{dept.name}</option>
+{departments.map(dept => (
+                    <option key={dept.Id} value={dept.name_c}>{dept.name_c}</option>
                   ))}
                 </Select>
                 <Select
@@ -203,15 +202,15 @@ const Employees = ({ onMenuClick }) => {
                 <div key={employee.Id} className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center space-x-3">
-                      <div className="bg-gradient-to-r from-primary-500 to-primary-600 h-12 w-12 rounded-full flex items-center justify-center text-white font-semibold text-lg">
-                        {employee.firstName?.charAt(0)}{employee.lastName?.charAt(0)}
+<div className="bg-gradient-to-r from-primary-500 to-primary-600 h-12 w-12 rounded-full flex items-center justify-center text-white font-semibold text-lg">
+                        {employee.first_name_c?.charAt(0)}{employee.last_name_c?.charAt(0)}
                       </div>
                       <div>
                         <h3 className="font-semibold text-gray-900">
-                          {employee.firstName} {employee.lastName}
+                          {employee.first_name_c} {employee.last_name_c}
                         </h3>
-                        <p className="text-sm text-gray-500">{employee.jobTitle}</p>
-                        <p className="text-xs text-gray-400">{employee.department}</p>
+                        <p className="text-sm text-gray-500">{employee.job_title_c}</p>
+                        <p className="text-xs text-gray-400">{employee.department_c?.Name}</p>
                       </div>
                     </div>
                   </div>
@@ -267,12 +266,12 @@ const Employees = ({ onMenuClick }) => {
           <div className="space-y-6">
             <div className="text-center">
               <div className="bg-gradient-to-r from-primary-500 to-primary-600 h-20 w-20 rounded-full flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4">
-                {selectedEmployee.firstName?.charAt(0)}{selectedEmployee.lastName?.charAt(0)}
+{selectedEmployee.first_name_c?.charAt(0)}{selectedEmployee.last_name_c?.charAt(0)}
               </div>
               <h2 className="text-2xl font-bold text-gray-900">
-                {selectedEmployee.firstName} {selectedEmployee.lastName}
+                {selectedEmployee.first_name_c} {selectedEmployee.last_name_c}
               </h2>
-              <p className="text-gray-600">{selectedEmployee.jobTitle}</p>
+              <p className="text-gray-600">{selectedEmployee.job_title_c}</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -281,36 +280,35 @@ const Employees = ({ onMenuClick }) => {
                 <div className="space-y-2 text-sm">
                   <div className="flex items-center space-x-2">
                     <ApperIcon name="Mail" className="h-4 w-4 text-gray-400" />
-                    <span>{selectedEmployee.email}</span>
+<span>{selectedEmployee.email_c}</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <ApperIcon name="Phone" className="h-4 w-4 text-gray-400" />
-                    <span>{selectedEmployee.phone}</span>
+                    <span>{selectedEmployee.phone_c}</span>
                   </div>
-                  {selectedEmployee.address && (
+                  {selectedEmployee.address_c && (
                     <div className="flex items-center space-x-2">
                       <ApperIcon name="MapPin" className="h-4 w-4 text-gray-400" />
-                      <span>{selectedEmployee.address}</span>
+                      <span>{selectedEmployee.address_c}</span>
                     </div>
                   )}
                 </div>
               </div>
-
-              <div>
+<div>
                 <h3 className="font-semibold text-gray-900 mb-3">Job Information</h3>
                 <div className="space-y-2 text-sm">
                   <div className="flex items-center space-x-2">
                     <ApperIcon name="Building2" className="h-4 w-4 text-gray-400" />
-                    <span>{selectedEmployee.department}</span>
+                    <span>{selectedEmployee.department_c?.Name}</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <ApperIcon name="Calendar" className="h-4 w-4 text-gray-400" />
-                    <span>Started {new Date(selectedEmployee.startDate).toLocaleDateString()}</span>
+                    <span>Started {new Date(selectedEmployee.start_date_c).toLocaleDateString()}</span>
                   </div>
-                  {selectedEmployee.manager && (
+                  {selectedEmployee.manager_c && (
                     <div className="flex items-center space-x-2">
                       <ApperIcon name="UserCheck" className="h-4 w-4 text-gray-400" />
-                      <span>Manager: {selectedEmployee.manager}</span>
+                      <span>Manager: {selectedEmployee.manager_c}</span>
                     </div>
                   )}
                 </div>
